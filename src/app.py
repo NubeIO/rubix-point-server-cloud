@@ -12,10 +12,10 @@ db = SQLAlchemy()
 
 def __db_setup(_app, _app_setting, db_pg: bool = False):
     if db_pg:
-        _app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/app_base"
+        _app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/bac_rest"
         _app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 10, 'max_overflow': 20}
     else:
-        _app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{_app_setting.data_dir}/data.db?timeout=60'
+        _app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}/data.db?timeout=60'.format(_app_setting.data_dir)
     _app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     _app.config['SQLALCHEMY_ECHO'] = False
     return _app
@@ -43,8 +43,9 @@ def create_app(app_setting) -> Flask:
         cursor.close()
 
     def register_router(_app) -> Flask:
-        from src.routes import bp_example
-        _app.register_blueprint(bp_example)
+        from src.routes import bp_generic_twin, bp_system
+        _app.register_blueprint(bp_generic_twin)
+        _app.register_blueprint(bp_system)
         return _app
 
     setup(app)
