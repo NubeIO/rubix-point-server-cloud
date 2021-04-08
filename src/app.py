@@ -47,6 +47,9 @@ def create_app(app_setting) -> Flask:
         _app.register_blueprint(bp_generic_twin)
         _app.register_blueprint(bp_discover)
         _app.register_blueprint(bp_system)
+
+        from src.reverse_proxy_routes import bp_slaves_request
+        _app.register_blueprint(bp_slaves_request)
         return _app
 
     setup(app)
