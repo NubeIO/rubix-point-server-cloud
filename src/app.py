@@ -43,8 +43,9 @@ def create_app(app_setting) -> Flask:
         cursor.close()
 
     def register_router(_app) -> Flask:
-        from src.routes import bp_generic_twin, bp_system
+        from src.routes import bp_generic_twin, bp_discover, bp_system
         _app.register_blueprint(bp_generic_twin)
+        _app.register_blueprint(bp_discover)
         _app.register_blueprint(bp_system)
         return _app
 

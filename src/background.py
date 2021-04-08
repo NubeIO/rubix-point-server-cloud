@@ -1,6 +1,7 @@
 import logging
 from threading import Thread
 
+import gevent
 from flask import current_app
 
 from .setting import AppSetting
@@ -31,6 +32,9 @@ class Background:
 
         # Services
         logger.info("Starting Services...")
+        from src.discover.remote_device_registry import RemoteDeviceRegistry
+        gevent.spawn(RemoteDeviceRegistry().register)
+
         if setting.services.mqtt:
             from src.services.mqtt_client import MqttClient
             for config in setting.mqtt_settings:

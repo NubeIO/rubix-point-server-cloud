@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
+from src.discover.resources.remote_device import RemoteDevice
 from src.drivers.generic_twin.resources.device.device_plural import GenericTwinDevicePlural
 from src.drivers.generic_twin.resources.device.device_singular import GenericTwinDeviceSingularByUUID, \
     GenericTwinDeviceSingularByName
@@ -34,6 +35,10 @@ api_generic_twin.add_resource(GenericTwinPointSingularByUUID, '/points/uuid/<str
 api_generic_twin.add_resource(GenericTwinPointSingularByName,
                               '/points/name/<string:network_master_name>/<string:network_name>/<string:device_name>/'
                               '<string:point_name>')
+
+bp_discover = Blueprint('discover', __name__, url_prefix='/api/discover')
+api_discover = Api(bp_discover)
+api_discover.add_resource(RemoteDevice, '/remote_devices')
 
 bp_system = Blueprint('system', __name__, url_prefix='/api/system')
 api_system = Api(bp_system)
