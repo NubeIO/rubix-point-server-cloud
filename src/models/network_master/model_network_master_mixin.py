@@ -13,8 +13,8 @@ class NetworkMasterMixinModel(NetworkMasterModel):
         pass
 
     @declared_attr
-    def uuid(self):
-        return db.Column(db.String(80), db.ForeignKey('networks_masters.uuid'), primary_key=True, nullable=False)
+    def global_uuid(self):
+        return db.Column(db.String(80), db.ForeignKey('networks_masters.global_uuid'), primary_key=True, nullable=False)
 
     @declared_attr
     def __mapper_args__(self):
@@ -23,4 +23,4 @@ class NetworkMasterMixinModel(NetworkMasterModel):
         }
 
     def __repr__(self):
-        return f"{self.get_polymorphic_identity().value}NetworkMaster(uuid = {self.uuid})"
+        return f"{self.get_polymorphic_identity().value}NetworkMaster(global_uuid = {self.global_uuid})"

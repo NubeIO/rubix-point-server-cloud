@@ -14,7 +14,7 @@ from src.services.event_service_base import EventType
 class NetworkModel(ModelBase):
     __tablename__ = 'networks'
     uuid = db.Column(db.String(80), primary_key=True, nullable=False)
-    network_master_uuid = db.Column(db.String, db.ForeignKey('networks_masters.uuid'), nullable=False)
+    network_master_global_uuid = db.Column(db.String, db.ForeignKey('networks_masters.global_uuid'), nullable=False)
     name = db.Column(db.String(80), nullable=False, unique=True)
     enable = db.Column(db.Boolean(), nullable=False)
     fault = db.Column(db.Boolean(), nullable=True)
@@ -28,7 +28,7 @@ class NetworkModel(ModelBase):
     }
 
     __table_args__ = (
-        UniqueConstraint('name', 'network_master_uuid'),
+        UniqueConstraint('name', 'network_master_global_uuid'),
     )
 
     @validates('name')

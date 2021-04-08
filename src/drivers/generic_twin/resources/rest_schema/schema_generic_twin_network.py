@@ -1,10 +1,15 @@
+from copy import deepcopy
+
+from flask_restful import fields
+
 from src.drivers.generic_twin.resources.rest_schema.schema_generic_twin_device import \
     generic_twin_device_all_fields_with_children, generic_twin_device_all_fields
-from src.resources.rest_schema.schema_network import *
+from src.resources.rest_schema.schema_network import network_return_attributes, network_all_attributes
+from src.resources.utils import map_rest_schema
 
 generic_twin_network_all_attributes = {
     **deepcopy(network_all_attributes),
-    'network_master_uuid': {
+    'network_master_global_uuid': {
         'type': str,
         'required': True,
     },

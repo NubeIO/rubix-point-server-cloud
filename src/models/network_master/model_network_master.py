@@ -8,15 +8,23 @@ from src.services.event_service_base import EventType
 
 class NetworkMasterModel(ModelBase):
     __tablename__ = 'networks_masters'
-
-    uuid = db.Column(db.String(80), primary_key=True, nullable=False)
+    global_uuid = db.Column(db.String(80), primary_key=True, nullable=False)
     name = db.Column(db.String(80), nullable=False, unique=True)
+    client_id = db.Column(db.String(80), nullable=True)
+    client_name = db.Column(db.String(80), nullable=False)
+    site_id = db.Column(db.String(80), nullable=False)
+    site_name = db.Column(db.String(80), nullable=False)
+    device_id = db.Column(db.String(80), nullable=False)
+    device_name = db.Column(db.String(80), nullable=False)
+    site_address = db.Column(db.String(80), nullable=False)
+    site_city = db.Column(db.String(80), nullable=False)
+    site_state = db.Column(db.String(80), nullable=False)
+    site_zip = db.Column(db.String(80), nullable=False)
+    site_country = db.Column(db.String(80), nullable=False)
+    site_lat = db.Column(db.String(80), nullable=False)
+    site_lon = db.Column(db.String(80), nullable=False)
     type = db.Column(db.Enum(NetworkMasterType), default=NetworkMasterType.INTEGRATION)
     networks = db.relationship('NetworkModel', cascade="all,delete", backref='network_master', lazy=True)
-
-    # TODO: needs value for type CLOUD, to sync with EDGE (null for type EDGE, we don't have to sync)
-    # site_uuid = db.Column(db.String, db.ForeignKey('site.uuid'), nullable=True)
-    # device_uuid = db.Column(db.String, db.ForeignKey('device.uuid'), nullable=True)
     driver = db.Column(db.Enum(Drivers), default=Drivers.GENERIC)
 
     __mapper_args__ = {
@@ -34,7 +42,3 @@ class NetworkMasterModel(ModelBase):
 
     def get_model_event_type(self) -> EventType:
         return EventType.NETWORK_MASTER_MODEL
-
-    def set_fault(self, is_fault: bool):
-        self.fault = is_fault
-        db.session.commit()

@@ -4,9 +4,9 @@ from flask_restful import reqparse
 from rubix_http.resource import RubixResource
 
 from src.drivers.generic_twin.models.point import GenericTwinPointModel
-from src.drivers.generic_twin.resources.rest_schema.schema_generic_twin_point import generic_twin_point_all_attributes, \
-    add_nested_priority_array_write
+from src.drivers.generic_twin.resources.rest_schema.schema_generic_twin_point import generic_twin_point_all_attributes
 from src.models.point.priority_array import PriorityArrayModel
+from src.resources.rest_schema.schema_point import add_nested_priority_array_write
 
 
 class GenericTwinPointBase(RubixResource):

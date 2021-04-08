@@ -1,6 +1,7 @@
 from copy import deepcopy
 
-from src.resources.rest_schema.schema_point import *
+from src.resources.rest_schema.schema_point import point_return_attributes, point_all_attributes
+from src.resources.utils import map_rest_schema
 
 generic_twin_point_all_attributes = deepcopy(point_all_attributes)
 generic_twin_point_all_attributes['type'] = {
