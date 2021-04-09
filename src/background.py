@@ -33,7 +33,7 @@ class Background:
         # Services
         logger.info("Starting Services...")
         from src.discover.remote_device_registry import RemoteDeviceRegistry
-        gevent.spawn(RemoteDeviceRegistry().register)
+        gevent.spawn(RemoteDeviceRegistry().register, current_app._get_current_object().app_context)
 
         if setting.services.mqtt:
             from src.services.mqtt_client import MqttClient
